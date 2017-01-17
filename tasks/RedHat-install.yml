@@ -1,0 +1,18 @@
+---
+- rpm_key:
+    state: present
+    key: https://yum.dockerproject.org/gpg
+    validate_certs: false
+
+- name: "set docker daemon options"
+  template:
+    src: docker.repo.j2
+    dest: /etc/yum.repos.d/docker.repo
+    owner: root
+    group: root
+    mode: 0644
+
+
+
+
+

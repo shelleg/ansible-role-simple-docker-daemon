@@ -1,0 +1,9 @@
+---
+# defaults file for ansible-role-simple-docker-daemon
+
+docker_group: docker
+docker_group_members: []
+#docker_version_major: 1
+#docker_version_minor: 2
+#docker_version_patch: 12
+#docker_version: "{{ docker_version_major }}.{{ docker_version_minor }}.{{ docker_version_patch }}"

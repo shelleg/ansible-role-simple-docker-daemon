@@ -1,0 +1,19 @@
+---
+- name: "Install system requirements"
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ docker_packages }}"
+
+- apt_key:
+    data: "{{ lookup('file', 'docker-apt-key') }}"
+    state: present
+
+- name: "Add repository"
+  apt_repository:
+    repo: 'deb {{ docker_repo }} ubuntu-{{ ansible_distribution_release }} main'
+    state: present
+
+- name: "Verify that apt is pulling from the right repository"
+  command: apt-cache policy docker-engine

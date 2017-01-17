@@ -1,0 +1,51 @@
+---
+# tasks file for ansible-role-simple-docker-daemon
+
+- name: "Include {{ ansible_os_family }} vars"
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: "Include {{ ansible_os_family }} requirements"
+  include: "{{ ansible_os_family }}-install.yml"
+
+- name: "Install docker + reqs"
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - docker-engine
+    - python-pip
+  register: result
+  until: '"failed" not in result'
+  retries: 5
+  delay: 10
+
+- name: "Upgrade pip"
+  pip:
+    name: pip
+    extra_args: "--upgrade"
+
+- name: "Install docker-py"
+  pip:
+    name: docker-py
+    state: present
+
+- name: Add users to the docker group
+  user:
+    name:   "{{ item }}"
+    groups: "{{ docker_group }}"
+    append: yes
+  with_items: "{{ docker_group_members }}"
+  when: docker_group_members not none
+
+- name: "start docker service"
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  register: service
+
+- name: wait until docker service is up
+  wait_for:
+    path: /var/run/docker.sock
+    delay: 10
+  when: (service|changed)
