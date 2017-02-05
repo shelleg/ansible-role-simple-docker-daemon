@@ -7,3 +7,10 @@ docker_group_members: []
 #docker_version_minor: 2
 #docker_version_patch: 12
 #docker_version: "{{ docker_version_major }}.{{ docker_version_minor }}.{{ docker_version_patch }}"
+
+docker_systemd_dir: /etc/systemd/system/docker.service.d
+
+docker_use_proxy: false
+docker_proxy_server_host: 127.0.0.1
+docker_proxy_server_port: 8080
+docker_no_proxy_string: "127.0.0.1,localhost"

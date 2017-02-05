@@ -1,0 +1,2 @@
+[Service]
+Environment="HTTP_PROXY=http://{{ docker_proxy_server_host }}:{{ docker_proxy_server_port }}/" "NO_PROXY={{ docker_no_proxy_string }}"
