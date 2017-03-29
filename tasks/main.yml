@@ -35,7 +35,7 @@
     groups: "{{ docker_group }}"
     append: yes
   with_items: "{{ docker_group_members }}"
-  when: docker_group_members not none
+  when: docker_group_members is defined
 
 - name: "start docker service"
   service:
