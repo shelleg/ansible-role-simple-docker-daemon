@@ -12,6 +12,37 @@
     group: root
     mode: 0644
 
+- name: "create systemd drop-in directory"
+  file:
+    state: directory
+    path: "{{ docker_systemd_dir }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- block:
+
+  - name: "configure proxy for docker service"
+    template:
+      src: http-proxy.conf.j2
+      dest: "{{ docker_systemd_dir }}.http-proxy.conf"
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: "check the docker service exists"
+    shell: "systemctl list-unit-files --type=service | grep sshd.service 1>/dev/null && echo installed"
+    register: service_is_installed
+    ignore_errors: true
+
+  - name: "restart docker service"
+    systemd:
+      name: docker
+      state: restarted
+      daemon_reload: yes
+    when: service_is_installed == "installed"
+
+  when: docker_use_proxy
 
 
 
