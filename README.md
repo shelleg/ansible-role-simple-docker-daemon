@@ -31,7 +31,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - role: shellg.simple-docker-daemon
+         - role: shelleg.simple-docker-daemon
            # add the vagrant user as a docker container administrator
            docker_group_members:
             - vagrant 
