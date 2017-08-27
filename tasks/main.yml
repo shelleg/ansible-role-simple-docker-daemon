@@ -12,8 +12,7 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - docker-engine
-    - python-pip
+    - "{{ docker_reqs }}"
   register: result
   until: '"failed" not in result'
   retries: 5

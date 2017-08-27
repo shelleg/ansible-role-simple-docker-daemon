@@ -5,3 +5,6 @@ docker_repo: http://apt.dockerproject.org/repo
 docker_packages:
   - apt-transport-https
   - ca-certificates
+docker_reqs:
+  - docker-engine
+  - python-pip
