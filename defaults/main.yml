@@ -15,3 +15,50 @@ docker_proxy_server_host: 127.0.0.1
 docker_proxy_server_port: 8080
 docker_no_proxy_string: "127.0.0.1,localhost"
 docker_compose_install: true
+
+docker_config_ip: "0.0.0.0"
+docker_config_port: 2375
+docker_config_sock: /var/run/docker.sock
+docker_config_hosts:
+  - "unix://{{ docker_config_sock }}"
+  - "tcp://{{ docker_config_ip }}:{{ docker_config_port }}"
+
+docker_config_graph: "/var/lib/docker"
+docker_config_log_driver: ""
+docker_config_log_opts: {}
+docker_config_max_concurrent_downloads: 3
+docker_config_max_concurrent_uploads: 5
+docker_config_debug: false
+docker_config_log_level: ""
+docker_config_bridge: ~
+docker_config_bip: "172.16.0.1/24"
+docker_config_fixed_cidr: "172.16.0.0/24"
+docker_config_fixed_cidr_v6: ""
+docker_config_default_gateway: ""
+docker_config_default_gateway_v6: ""
+docker_config_selinux_enabled: false
+docker_config_group: "{{ docker_group }}"
+docker_config_insecure_registries: []
+
+#docker daemon options:
+docker_config_opts:
+  "log-driver": "{{ docker_config_log_driver }}"
+  "log-opts": "{{ docker_config_log_opts }}"
+  "graph": "{{ docker_config_graph }}"
+  "max-concurrent-downloads": "{{ docker_config_max_concurrent_downloads }}"
+  "max-concurrent-uploads": "{{ docker_config_max_concurrent_uploads }}"
+  "debug": "{{ docker_config_debug }}"
+  "hosts": "{{ docker_config_hosts }}"
+  "log-level": "{{ docker_config_log_level }}"
+  "selinux-enabled": "{{ docker_config_selinux_enabled }}"
+  "group": "{{ docker_config_group }}"
+  "bridge": "{{ docker_config_bridge }}"
+  "bip": "{{ docker_config_bip }}"
+  "fixed-cidr": "{{ docker_config_fixed_cidr }}"
+  "fixed-cidr-v6": "{{ docker_config_fixed_cidr_v6 }}"
+  "default-gateway": "{{ docker_config_default_gateway }}"
+  "default-gateway-v6": "{{ docker_config_default_gateway_v6 }}"
+  "insecure-registries": "{{ docker_config_insecure_registries }}"
+  "ip": "{{ docker_config_ip }}"
+
+docker_config_custom_opts: {}

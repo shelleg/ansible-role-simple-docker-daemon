@@ -42,6 +42,9 @@
   with_items: "{{ docker_group_members }}"
   when: docker_group_members is defined
 
+- include: "config-daemon.yml"
+
+
 - name: "start docker service"
   service:
     name: docker

@@ -4,7 +4,7 @@
     key: https://yum.dockerproject.org/gpg
     validate_certs: false
 
-- name: "set docker daemon options"
+- name: "set docker repo options"
   template:
     src: docker.repo.j2
     dest: /etc/yum.repos.d/docker.repo
@@ -43,7 +43,3 @@
     when: service_is_installed == "installed"
 
   when: docker_use_proxy
-
-
-
-
