@@ -28,6 +28,12 @@
     name: docker-py
     state: present
 
+- name: "Install docker-compose (via pip ...)"
+  pip:
+    name: docker-compose
+    state: present
+  when: docker_compose_install
+
 - name: Add users to the docker group
   user:
     name:   "{{ item }}"

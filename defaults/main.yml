@@ -14,3 +14,4 @@ docker_use_proxy: false
 docker_proxy_server_host: 127.0.0.1
 docker_proxy_server_port: 8080
 docker_no_proxy_string: "127.0.0.1,localhost"
+docker_compose_install: true
