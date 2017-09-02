@@ -1,0 +1,28 @@
+---
+
+# - name: "Append docker-compose pkg name to docker_reqs"
+#   set_fact:
+#     docker_reqs: "{{ docker_reqs }} + [ '{{ dokcer_compose_pkg }}' ]"
+# there are issues with urlllib etc try using latest binary from github
+# curl -L https://github.com/docker/compose/releases/download/1.16.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+#  chmod +x /usr/local/bin/docker-compose
+- name: "Verify docker-compose version"
+  shell: docker-compose --version
+  register: docker_compose_current_version
+  changed_when: false
+  failed_when: false
+  # ignore_errors: true
+
+- name: Delete existing docker-compose version if it's different.
+  file:
+    path: "{{ docker_compose_path }}"
+    state: absent
+  when: >
+    docker_compose_current_version.stdout is defined
+    and docker_compose_version not in docker_compose_current_version.stdout
+
+- name: Install Docker Compose (if configured).
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+    dest: "{{ docker_compose_path }}"
+    mode: 0755

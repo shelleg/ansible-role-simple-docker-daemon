@@ -2,9 +2,16 @@
 docker_keyserver: hkp://p80.pool.sks-keyservers.net:80
 docker_repo_key: "58118E89F3A912897C070ADBF76221572C52609D"
 docker_repo: http://apt.dockerproject.org/repo
+docker_repo_url: "deb https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable"
+
+docker_remove_pkgs:
+  - docker
+  - docker-engine
+
 docker_packages:
   - apt-transport-https
   - ca-certificates
+
 docker_reqs:
-  - docker-engine
+  - "{{ docker_pkg }}"
   - python-pip

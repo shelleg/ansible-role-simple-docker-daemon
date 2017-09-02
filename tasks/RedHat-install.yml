@@ -1,16 +1,25 @@
 ---
-- rpm_key:
+- name: "Add rpm gpg key"
+  rpm_key:
     state: present
     key: https://yum.dockerproject.org/gpg
     validate_certs: false
 
 - name: "set docker repo options"
-  template:
-    src: docker.repo.j2
-    dest: /etc/yum.repos.d/docker.repo
+  get_url:
+    url: "{{ docker_repo_url }}"
+    dest: '/etc/yum.repos.d/docker-{{ docker_dist }}.repo'
     owner: root
     group: root
     mode: 0644
+
+# - name: "set docker repo options"
+#   template:
+#     src: docker.repo.j2
+#     dest: /etc/yum.repos.d/docker.repo
+#     owner: root
+#     group: root
+#     mode: 0644
 
 - name: "create systemd drop-in directory"
   file:

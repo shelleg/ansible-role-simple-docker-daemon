@@ -1,4 +1,17 @@
 ---
+- name: "Set docker_config_hosts based if docker_default_tcp_listen is true"
+  set_fact:
+    docker_config_hosts:
+      - "unix://{{ docker_config_sock }}"
+      - "tcp://{{ docker_config_ip }}:{{ docker_config_port }}"
+  when: docker_default_tcp_listen == true
+
+- name: "Set docker_config_hosts based if docker_default_tcp_listen is false"
+  set_fact:
+    docker_config_hosts:
+      - "unix://{{ docker_config_sock }}"
+  when: docker_default_tcp_listen == false
+
 - name: create docker config directory
   file:
     path: /etc/docker

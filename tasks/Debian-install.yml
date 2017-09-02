@@ -12,8 +12,9 @@
 
 - name: "Add repository"
   apt_repository:
-    repo: 'deb {{ docker_repo }} ubuntu-{{ ansible_distribution_release }} main'
+    repo: ''{{ docker_repo_url }}"
     state: present
+    update_cache: yes
 
-- name: "Verify that apt is pulling from the right repository"
-  command: apt-cache policy docker-engine
+# - name: "Verify that apt is pulling from the right repository"
+#   command: apt-cache policy docker-engine

@@ -1,6 +1,10 @@
 ---
 # defaults file for ansible-role-simple-docker-daemon
 
+# docker edition
+docker_dist: ce # ce | ee
+docker_pkg: "docker-{{ docker_dist }}"
+
 docker_group: docker
 docker_group_members: []
 #docker_version_major: 1
@@ -14,14 +18,19 @@ docker_use_proxy: false
 docker_proxy_server_host: 127.0.0.1
 docker_proxy_server_port: 8080
 docker_no_proxy_string: "127.0.0.1,localhost"
+
 docker_compose_install: true
+docker_compose_version: 1.16.0
+dokcer_compose_pkg: docker-compose
+docker_compose_path:  /usr/local/bin/docker-compose
 
 docker_config_ip: "0.0.0.0"
 docker_config_port: 2375
 docker_config_sock: /var/run/docker.sock
-docker_config_hosts:
-  - "unix://{{ docker_config_sock }}"
-  - "tcp://{{ docker_config_ip }}:{{ docker_config_port }}"
+docker_default_tcp_listen: true
+# docker_config_hosts:
+#   - "unix://{{ docker_config_sock }}"
+#   - "tcp://{{ docker_config_ip }}:{{ docker_config_port }}"
 
 docker_config_graph: "/var/lib/docker"
 docker_config_log_driver: ""
@@ -31,8 +40,8 @@ docker_config_max_concurrent_uploads: 5
 docker_config_debug: false
 docker_config_log_level: ""
 docker_config_bridge: ~
-docker_config_bip: "172.16.0.1/24"
-docker_config_fixed_cidr: "172.16.0.0/24"
+docker_config_bip: "172.23.0.1/24"
+docker_config_fixed_cidr: "172.23.0.0/24"
 docker_config_fixed_cidr_v6: ""
 docker_config_default_gateway: ""
 docker_config_default_gateway_v6: ""
@@ -62,3 +71,4 @@ docker_config_opts:
   "ip": "{{ docker_config_ip }}"
 
 docker_config_custom_opts: {}
+docker_do_things_i_hate_doing: true

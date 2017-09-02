@@ -1,4 +1,17 @@
 ---
-docker_reqs:
+
+
+
+docker_repo_url: https://download.docker.com/linux/centos/docker-{{ docker_dist }}.repo
+
+docker_remove_pkgs:
+  - docker
   - docker-engine
-  - python-pip
+  - docker-common
+
+
+
+
+docker_reqs:
+  - "{{ docker_pkg }}"
+  - python2-pip
