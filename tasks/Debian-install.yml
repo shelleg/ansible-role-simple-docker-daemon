@@ -12,7 +12,7 @@
 
 - name: "Add repository"
   apt_repository:
-    repo: ''{{ docker_repo_url }}"
+    repo: "{{ docker_repo_url }}"
     state: present
     update_cache: yes
 
