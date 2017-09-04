@@ -1,6 +1,6 @@
 ---
 
-- name: "In ubuntu fix the docker.service file which iverlaps with daemon.json"
+- name: "In ubuntu fix the docker.service file which overlaps with daemon.json"
   lineinfile:
     path: /lib/systemd/system/docker.service
     regexp: '^ExecStart=/usr/bin/dockerd -H fd://'
