@@ -1,4 +1,18 @@
 ---
+
+- name: "In ubuntu fix the docker.service file which iverlaps with daemon.json"
+  lineinfile:
+    path: /lib/systemd/system/docker.service
+    regexp: '^ExecStart=/usr/bin/dockerd -H fd://'
+    # regexp: '^\+ \: root \: ALL'
+    line: 'ExecStart=/usr/bin/dockerd'
+  register: ddaemon
+  when: ansible_os_family == 'Debian'
+
+- name: "systemctl daemon-reload"
+  command: systemctl daemon-reload
+  when: (ddaemon|changed)
+
 - name: "Set docker_config_hosts based if docker_default_tcp_listen is true"
   set_fact:
     docker_config_hosts:

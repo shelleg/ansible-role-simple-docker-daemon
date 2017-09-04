@@ -25,9 +25,6 @@
   retries: 5
   delay: 10
 
-- include: docker-compose.yml
-  when: docker_compose_install
-
 - name: "Upgrade pip"
   pip:
     name: pip
@@ -68,3 +65,6 @@
     port: "{{ docker_config_port }}"
     delay: 10
   when: ((service|changed) and (docker_default_tcp_listen == true))
+
+- include: docker-compose.yml
+  when: docker_compose_install

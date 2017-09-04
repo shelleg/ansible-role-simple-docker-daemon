@@ -6,9 +6,11 @@
   with_items:
     - "{{ docker_packages }}"
 
-- apt_key:
-    data: "{{ lookup('file', 'docker-apt-key') }}"
-    state: present
+# - apt_key:
+#     data: "{{ lookup('file', 'docker-apt-key') }}"
+#     state: present
+- name: "Add apt-key via curl [quick and dirty ...]"
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 - name: "Add repository"
   apt_repository:
